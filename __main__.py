@@ -57,4 +57,14 @@ def read_dataset(file_name) -> pd.DataFrame:
     table = pq.ParquetFile(file_name).read()
     return table.to_pandas()
 
+def main() -> None:
+    original_df = create_large_dataset()
+    save_dataset(original_df, "output.parquet")
+    new_df = read_dataset("output.parquet")
+    print("Original Dataset\n", original_df)
+    print("New Dataset\n", new_df)
+    assert_frame_equal(original_df, new_df)
 
+
+if __name__ == '__main__':
+    main()
