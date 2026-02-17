@@ -48,3 +48,13 @@ def create_large_dataset() -> pd.DataFrame:
     return pd.DataFrame(data)
 
 
+def save_dataset(df, output_file_name) -> None:
+    table = pa.Table.from_pandas(df)
+    pq.write_table(table, output_file_name)
+
+
+def read_dataset(file_name) -> pd.DataFrame:
+    table = pq.ParquetFile(file_name).read()
+    return table.to_pandas()
+
+
